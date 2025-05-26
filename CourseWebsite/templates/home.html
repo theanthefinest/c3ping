@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to <span style="color:#38e4ae;"> AMS Agent | Course Recommendations</span></h1>
+            <p class="hero-subtitle">Your personalized guide to discovering the best online courses for your learning journey.</p>
+            <form action="{% url 'recommend' %}" method="post" class="d-flex justify-content-center mt-4 mb-3">
+                {% csrf_token %}
+                <input type="text" name="query" class="form-control search-input" placeholder="What do you want to learn? (e.g., Python, Data Science)" style="max-width: 350px;">
+                <button type="submit" class="btn search-btn ms-2"><i class="fas fa-search me-1"></i>Find Courses</button>
+            </form>
+            <div class="mt-4 mb-2" style="max-width: 700px; margin: 0 auto;">
+                <div class="card bg-dark bg-opacity-75 border-0 shadow-lg p-4" style="border-radius: 1.2rem;">
+                    <h4 class="mb-3" style="color: #38e4ae;"><i class="fas fa-info-circle me-2"></i>How does it work?</h4>
+                    <ol class="text-start" style="color: #e0e0e0; font-size: 1.1rem;">
+                        <li><strong>Enter your interests:</strong> Type what you want to learn (e.g., "Python", "Data Science", "Web Development") in the search bar above.</li>
+                        <li><strong>Get recommendations:</strong> Our AI analyzes your query and instantly suggests the most relevant courses from our curated catalog.</li>
+                        <li><strong>Explore details:</strong> View course ratings, skills you'll gain, and direct links to enroll or learn more.</li>
+                        <li><strong>Personalized & Fast:</strong> The more specific your keywords, the better your recommendations!</li>
+                    </ol>
+                    <div class="alert alert-info mt-3 mb-0" style="background: rgba(56,228,174,0.12); color: #38e4ae; border: none;">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Try searching for <span style="font-weight:600;">"Machine Learning"</span>, <span style="font-weight:600;">"Business Analytics"</span>, or <span style="font-weight:600;">"Mobile App Development"</span> to get started!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

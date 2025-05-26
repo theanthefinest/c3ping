@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script id="rating-dist-data" type="application/json">{{ rating_dist_json|safe }}</script>
+
+<div class="container py-5">
+    <div class="row gy-4">
+
+        <!-- Header & Chart -->
+        <div class="col-12 animate-fadein">
+            <div class="card shadow-lg border-0 animate-slideup">
+                <div class="card-body d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+                    <div>
+                        <h2 class="text-primary fw-bold mb-1">
+                            <i class="fas fa-chart-bar me-2"></i> Course Database Analytics
+                        </h2>
+                        <p class="text-muted mb-0 fs-5">Visualize course ratings and explore the top-rated learning opportunities!</p>
+                    </div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Analytics" style="height:60px;">
+                </div>
+                <div class="card-body pt-0">
+                    <div id="ratings-bar-chart" class="mx-auto animate-fadein" style="width:100%; max-width:720px; height:400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        {% if top_courses and top_courses|length > 0 %}
+
+        <!-- Top Rated Course -->
+        <div class="col-12 animate-fadein" style="animation-delay:0.2s;">
+            <div class="d-flex align-items-center mb-3 mt-4">
+                <h3 class="text-success fw-semibold mb-0">
+                    <i class="fas fa-trophy me-2"></i> 
+                    <span style="color:#00FFFF;">Best Learning Course Based on The Past Few Years</span>
+                </h3>
+                <span class="ms-2 text-warning fs-4 glow">★</span>
+            </div>
+            {% with top_course=top_courses.0 %}
+            <div class="card mb-4 border-0 shadow-lg p-4 animate-slideup-glow" style="background: linear-gradient(135deg, #000000, #000000);">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-8">
+                        <h4 class="fw-bold mb-2">
+                            <i class="fas fa-book-reader me-2 text-primary"></i>{{ top_course.Course_Name|default:"N/A" }}
+                        </h4>
+                        <p class="mb-2 text-muted">
+                            <i class="fas fa-star text-warning"></i>
+                            <span class="fw-semibold">{{ top_course.Course_Rating|floatformat:1 }}</span>
+                        </p>
+                        {% if top_course.Course_Description %}
+                        <p class="text-muted small">
+                            <i class="fas fa-info-circle me-1"></i> {{ top_course.Course_Description|truncatechars:140 }}
+                        </p>
+                        {% endif %}
+                        {% if top_course.Course_URL %}
+                        <a href="{{ top_course.Course_URL }}" target="_blank" rel="noopener" class="btn btn-primary rounded-pill mt-2 fw-semibold animate-btn">
+                            <i class="fas fa-external-link-alt me-1"></i> Explore Course
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Top Course" class="img-fluid animate-pop" style="max-height: 150px;">
+                    </div>
+                </div>
+            </div>
+            {% endwith %}
+        </div>
+
+        <!-- More Top Courses -->
+        <div class="col-12 animate-fadein" style="animation-delay:0.3s;">
+            <div class="d-flex align-items-center mb-3 mt-2">
+                <h4 class="text-info fw-semibold mb-0">
+                    <i class="fas fa-list me-2"></i> Top Courses Recommended For You
+                </h4>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for course in top_courses|slice:"1:10" %}
+                <div class="col animate-fadein">
+                    <div class="card h-100 border-0 shadow-sm p-3 hover-shadow animate-slideup">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title mb-0 text-truncate w-75" style="color:#000;">
+                                        <i class="fas fa-book-open me-1" style="color:#000;"></i> {{ forloop.counter|add:1 }}. {{ course.Course_Name|default:'N/A' }}
+                                    </h5>
+                                    <div class="text-warning fw-bold fs-6">
+                                        <i class="fas fa-star"></i> {{ course.Course_Rating|floatformat:1 }}
+                                    </div>
+                                </div>
+
+
+                                {% if course.Course_Description %}
+                                <p class="text-muted small" id="desc-{{ forloop.counter0 }}">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    <span class="desc-short">{{ course.Course_Description|truncatechars:100 }}</span>
+                                    {% if course.Course_Description|length > 100 %}
+                                    <span class="desc-full d-none">{{ course.Course_Description }}</span>
+                                    <span class="desc-toggle text-info fw-semibold ms-1" style="cursor:pointer;" data-desc-id="desc-{{ forloop.counter0 }}">Show more</span>
+                                    {% endif %}
+                                </p>
+                                {% endif %}
+                            </div>
+
+                            {% if course.Course_URL %}
+                            <div>
+                                <a href="{{ course.Course_URL }}" target="_blank" rel="noopener" class="btn btn-outline-info w-100 rounded-pill fw-semibold animate-btn">
+                                    <i class="fas fa-external-link-alt me-1"></i> View Course
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-warning mt-4 animate-fadein">
+            <i class="fas fa-exclamation-triangle me-2"></i> No top courses available.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Ratings Chart Script -->
+<script>
+    const ratingsData = JSON.parse(document.getElementById('rating-dist-data').textContent);
+    const ratings = Object.keys(ratingsData).map(Number).sort((a, b) => a - b);
+    const counts = ratings.map(r => ratingsData[r]);
+
+    const data = [{
+        x: ratings,
+        y: counts,
+        type: 'bar',
+        marker: {
+            color: 'rgba(63, 191, 191, 0.8)',
+            line: {
+                color: 'rgba(63, 191, 191, 1.0)',
+                width: 1.5
+            }
+        },
+        hovertemplate: 'Rating: %{x}<br>Courses: %{y}<extra></extra>',
+        opacity: 0.85
+    }];
+
+    const layout = {
+        title: { text: "Distribution of Course Ratings", font: { size: 22 } },
+        xaxis: { title: "Rating", tickmode: 'linear', dtick: 0.5 },
+        yaxis: { title: "Number of Courses" },
+        template: 'plotly_white',
+        margin: { t: 60, l: 60, r: 30, b: 60 },
+        transition: { duration: 700, easing: "cubic-in-out" },
+        bargap: 0.18,
+        plot_bgcolor: '#f8fafc',
+        paper_bgcolor: '#f8fafc'
+    };
+
+    if (ratings.length > 0) {
+        Plotly.newPlot('ratings-bar-chart', data, layout, { responsive: true, displayModeBar: false });
+        setTimeout(() => {
+            Plotly.animate('ratings-bar-chart', {
+                data: [{ opacity: 1 }]
+            }, {
+                transition: { duration: 900, easing: 'cubic-in-out' },
+                frame: { duration: 900, redraw: false }
+            });
+        }, 300);
+    } else {
+        document.getElementById('ratings-bar-chart').innerHTML = `
+            <div class="custom-alert-bg d-flex flex-column align-items-center justify-content-center" style="min-height: 220px; border-radius: 1rem; background: var(--bs-light, #f8f9fa); box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <div class="alert alert-warning mt-2 mb-0 w-100 text-center fw-semibold" style="max-width: 420px; margin: 0 auto; background: rgba(255, 243, 205, 0.95); border-radius: 0.75rem; border: 1px solid #ffe082;">
+                    <i class="fas fa-exclamation-triangle me-2"></i>No rating data available.
+                </div>
+            </div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.desc-toggle').forEach(function (toggle) {
+            toggle.addEventListener('click', function () {
+                const descId = this.getAttribute('data-desc-id');
+                const parent = document.getElementById(descId);
+                const short = parent.querySelector('.desc-short');
+                const full = parent.querySelector('.desc-full');
+
+                if (full.classList.contains('d-none')) {
+                    short.classList.add('d-none');
+                    full.classList.remove('d-none');
+                    this.textContent = 'Show less';
+                } else {
+                    short.classList.remove('d-none');
+                    full.classList.add('d-none');
+                    this.textContent = 'Show more';
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+    .hover-shadow {
+        transition: transform 0.3s cubic-bezier(.4,2,.3,1), box-shadow 0.3s cubic-bezier(.4,2,.3,1);
+    }
+    .hover-shadow:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+    }
+    .animate-fadein {
+        opacity: 0;
+        animation: fadeIn 0.8s forwards;
+    }
+    .animate-slideup {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUp 0.8s forwards;
+    }
+    .animate-slideup-glow {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUpGlow 1s forwards;
+    }
+    .animate-pop {
+        opacity: 0;
+        transform: scale(0.8);
+        animation: popIn 0.7s 0.3s forwards;
+    }
+    .animate-badge:hover {
+        background: #4dd0e1;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(77,208,225,0.2);
+    }
+    .animate-btn:hover {
+        background: #0097a7;
+        box-shadow: 0 4px 16px rgba(0,151,167,0.18);
+        transform: translateY(-2px) scale(1.04);
+    }
+    .glow {
+        text-shadow: 0 0 8px #ffe082, 0 0 16px #ffd54f;
+        animation: glowPulse 1.5s infinite alternate;
+    }
+    .desc-short, .desc-full {
+        display: inline;
+    }
+    .d-none {
+        display: none !important;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUpGlow {
+        0% { opacity: 0; transform: translateY(30px); box-shadow: none; }
+        80% { opacity: 1; transform: translateY(-4px); box-shadow: 0 0 24px #4dd0e1; }
+        100% { opacity: 1; transform: translateY(0); box-shadow: 0 0 0 transparent; }
+    }
+    @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.8); }
+        80% { opacity: 1; transform: scale(1.08); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes glowPulse {
+        from { text-shadow: 0 0 8px #ffe082, 0 0 16px #ffd54f; }
+        to { text-shadow: 0 0 16px #ffd54f, 0 0 32px #fffde7; }
+    }
+</style>
+
+{% endblock %}
