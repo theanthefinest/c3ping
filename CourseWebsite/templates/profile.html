@@ -2,30 +2,197 @@
 {% load static %}
 
 {% block content %}
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
-    <br>
-    </br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="profile-bg">
+  <div class="profile-row">
+    <div class="card">
+      <div class="card-content">
+        <img src="{% static 'img.jpg' %}" alt="John" class="profile-img">
+        <h1>LY Chhaythean</h1>
+        <p class="title">Team Lead, Developer</p>
+        <p>Institute of Technology of Cambodia</p>
+        <div class="social-links">
+          <a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <img src="{% static 'img.jpg' %}" alt="John" class="profile-img">
+        <h1>NEANG Vanna</h1>
+        <p class="title">UX & UI, Designer</p>
+        <p>Institute of Technology of Cambodia</p>
+        <div class="social-links">
+          <a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <img src="{% static 'img.jpg' %}" alt="John" class="profile-img">
+        <h1>PHEARUN Pichchhorda</h1>
+        <p class="title">Data Collector, Slide Presenter</p>
+        <p>Institute of Technology of Cambodia</p>
+        <div class="social-links">
+          <a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <img src="{% static 'img.jpg' %}" alt="John" class="profile-img">
+        <h1>ORN Vanda</h1>
+        <p class="title">Report Writer, Slide Presenter</p>
+        <p>Institute of Technology of Cambodia</p>
+        <div class="social-links">
+          <a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <img src="{% static 'img.jpg' %}" alt="John" class="profile-img">
+        <h1>KUONG Sivhoung</h1>
+        <p class="title"></p>
+        <p>Institute of Technology of Cambodia</p>
+        <div class="social-links">
+          <a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.profile-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 1200px;
+}
+.card {
+  box-shadow: 0 8px 24px 0 rgba(0,0,0,0.15);
+  max-width: 300px;
+  min-width: 260px;
+  min-height: 420px;
+  margin: 40px auto;
+  text-align: center;
+  background: #fff;
+  border-radius: 18px;
+  padding: 0 0 0 0;
+  transition: box-shadow 0.3s;
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px 0 24px;
+}
+.card-btn {
+  margin: 0;
+  padding: 0 24px 24px 24px;
+}
+.card:hover {
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.18);
+}
+.profile-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 18px;
+  border: 4px solid #eaeaea;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.title {
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.card h1 {
+  font-size: 22px;
+  margin: 0 0 8px 0;
+  color: #222;
+}
+.card p {
+  margin: 6px 0;
+}
+.social-links {
+  margin: 18px 0 10px 0;
+}
+.social-links a {
+  margin: 0 8px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #888;
+  transition: color 0.2s, transform 0.2s;
+}
+.social-links a.dribbble:hover { color: #ea4c89; transform: scale(1.2); }
+.social-links a.twitter:hover { color: #1da1f2; transform: scale(1.2); }
+.social-links a.linkedin:hover { color: #0077b5; transform: scale(1.2); }
+.social-links a.facebook:hover { color: #3b5998; transform: scale(1.2); }
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 0;
+  color: white;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(102,126,234,0.10);
+  transition: background 0.2s, opacity 0.2s;
+}
+button:hover {
+  opacity: 0.85;
+  background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+}
+@media (max-width: 1100px) {
+  .profile-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .card {
+    max-width: 340px;
+    width: 100%;
+    min-width: 0;
+  }
+}
+</style>
+
 {% endblock %}

@@ -162,7 +162,7 @@ def preprocess_query(query, tfidf):
     except Exception:
         return None
 
-def recommend_courses(query, df, tfidf, vectors, model, n_recommendations=5, use_knn=True):
+def recommend_courses(query, df, tfidf, vectors, model, n_recommendations=10, use_knn=True):
     if not query or tfidf is None:
         return []
     query_vector = preprocess_query(query, tfidf)
