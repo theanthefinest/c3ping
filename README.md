@@ -3,7 +3,6 @@
 This project is a Django-based web application for course recommendation and analytics, utilizing machine learning and data visualization tools. It is designed to help users find suitable courses and analyze course data interactively.
 
 ## Features
-- User authentication (login, profile)
 - Course recommendation system using machine learning (scikit-learn, pandas, numpy)
 - Data analytics and visualization (Plotly, Streamlit)
 - Natural language processing (NLTK, spaCy)
