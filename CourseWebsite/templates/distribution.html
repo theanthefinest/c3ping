@@ -1,0 +1,372 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Methodology{% endblock %}
+
+{% block extra_css %}
+<style>
+    .methodology-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        color: #000;
+    }
+    
+    .methodology-header {
+        border-bottom: 1px solid #eee;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .section-heading {
+        color: #000;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-left: 3px solid #3498db;
+        padding-left: 10px;
+    }
+    
+    .subsection-heading {
+        color: #000;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .methodology-section {
+        margin-bottom: 2rem;
+    }
+    
+    .divider {
+        border: 0;
+        border-top: 1px solid #f0f0f0;
+        margin: 2rem 0;
+    }
+    
+    .code-block {
+        background-color: #f8f9fa;
+        color: #000;
+        padding: 12px;
+        border-left: 3px solid #3498db;
+        border-radius: 3px;
+        overflow-x: auto;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+    }
+    
+    .figure {
+        text-align: center;
+        margin: 1.5rem 0;
+    }
+    
+    .figure img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 3px;
+    }
+    
+    .figure figcaption {
+        margin-top: 8px;
+        font-size: 0.85rem;
+        color: #000;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="methodology-container fade-in-up">
+    <div class="methodology-header">
+        <h1 class="mb-0">Course Recommender System Methodology</h1>
+    </div>
+
+    <section id="overview" class="methodology-section">
+        <h2 class="section-heading">1. Overview</h2>
+        <p>This document outlines the methodology behind the course recommendation system. The system is designed to suggest relevant courses to users based on a textual query describing their interests or desired skills. It employs a content-based filtering approach, utilizing Natural Language Processing (NLP) techniques and machine learning to find courses that best match the user's input.</p>
+    </section>
+
+    <hr class="divider">
+
+    <section id="data-acquisition" class="methodology-section">
+        <h2 class="section-heading">2. Data Acquisition and Loading</h2>
+        <p>The system begins by loading course data from available sources:</p>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li class="mb-2"><strong>Primary Source:</strong> CSV file named <code>Final_Coursera.csv</code> located at <code>D:\AMS-Agent\agentAMS\Final_Coursera.csv</code></li>
+                    <li class="mb-2"><strong>Required Columns:</strong> 'Course Name', 'Course Description', 'Skills', 'Course Rating', and 'Course URL'</li>
+                    <li><strong>Fallback Mechanism:</strong> If the primary data source is unavailable, the system uses a predefined sample dataset</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="data-preprocessing" class="methodology-section">
+        <h2 class="section-heading">3. Data Preprocessing</h2>
+        <p>Once the data is loaded, it undergoes several preprocessing steps to prepare it for analysis:</p>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">Handling Missing Values</h3>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li>Textual columns ('Course Name', 'Course Description', 'Skills') have missing values filled with empty strings</li>
+                    <li>'Course Rating' is converted to a numeric type with default value 4.0 for errors/missing values</li>
+                    <li>'Course URL' missing values are filled with a placeholder ('#')</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">Feature Engineering</h3>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">A new feature, 'tags', is created by concatenating the 'Course Name', 'Course Description', and 'Skills' for each course. This consolidated text field serves as the primary input for textual analysis.</p>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">Text Cleaning</h3>
+            </div>
+            <div class="card-body">
+                <p>The 'tags' and user queries are cleaned through the following steps:</p>
+                <ul class="mb-0">
+                    <li>Conversion to lowercase</li>
+                    <li>Removal of non-alphanumeric characters</li>
+                    <li>Normalization of whitespace</li>
+                    <li>Removal of leading and trailing whitespace</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">Stop Word Removal</h3>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Common English stop words (e.g., 'the', 'a', 'is') and words with two or fewer characters are removed to focus on meaningful terms.</p>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">Simple Stemming</h3>
+            </div>
+            <div class="card-body">
+                <p>A basic stemming process is applied to reduce words to their root form:</p>
+                <ul>
+                    <li>Removing 'ing' from words longer than 4 characters</li>
+                    <li>Removing 'ed' from words longer than 3 characters</li>
+                    <li>Removing 's' from words longer than 3 characters (unless ending in 'ss')</li>
+                </ul>
+                <p class="mb-0 font-italic text-muted">Example: "programming", "programmes" → "program"</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="feature-extraction" class="methodology-section">
+        <h2 class="section-heading">4. Feature Extraction (TF-IDF Vectorization)</h2>
+        <p>To enable mathematical comparison between courses and user queries, the processed textual data is converted into numerical vectors using Term Frequency-Inverse Document Frequency (TF-IDF).</p>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">TF-IDF Implementation</h3>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">Using <code>TfidfVectorizer</code> from Scikit-learn with parameters:</p>
+                <div class="table-responsive mt-2">
+                    <table class="table table-bordered table-sm">
+                        <tbody>
+                            <tr>
+                                <th scope="row" width="150">max_features</th>
+                                <td>5000 (Top 5000 most frequent terms)</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">ngram_range</th>
+                                <td>(1, 2) (Both individual words and word pairs)</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">min_df</th>
+                                <td>1 (Term must appear in at least one document)</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">max_df</th>
+                                <td>0.95 (Term must not appear in more than 95% of documents)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <hr class="divider">
+
+    <section id="model-training" class="methodology-section">
+        <h2 class="section-heading">5. Model Training (Nearest Neighbors)</h2>
+        <p>A K-Nearest Neighbors (KNN) model is trained using the TF-IDF vectors to efficiently find courses similar to a given query.</p>
+        
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        <h3 class="subsection-heading mb-0">Model Configuration</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li><strong>Model:</strong> <code>NearestNeighbors</code> from Scikit-learn</li>
+                            <li><strong>Number of Neighbors:</strong> <code>min(20, number_of_valid_courses)</code></li>
+                            <li><strong>Metric:</strong> <code>cosine</code> similarity</li>
+                            <li><strong>Algorithm:</strong> <code>brute</code> force search</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        <h3 class="subsection-heading mb-0">Model Implementation</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>The model is fitted with the TF-IDF vectors of all courses. If no valid 'processed_tags' exist after preprocessing, the vectorizer and model are not created.</p>
+                        <p class="mb-0 text-muted font-italic small">Cosine similarity is particularly suitable for text data as it is robust to document length variations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="query-processing" class="methodology-section">
+        <h2 class="section-heading">6. User Query Processing</h2>
+        <p>When a user submits a query, it undergoes the same preprocessing steps as the course data:</p>
+        
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">Processing Pipeline</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="process-step mb-3">
+                            <span class="badge bg-primary text-white rounded-circle">1</span>
+                            <strong class="ms-2">Cleaning</strong>
+                            <p class="ms-4 mb-2">Application of the <code>clean_text</code> function</p>
+                        </div>
+                        
+                        <div class="process-step mb-3">
+                            <span class="badge bg-primary text-white rounded-circle">2</span>
+                            <strong class="ms-2">Stop Word Removal</strong>
+                            <p class="ms-4 mb-2">Elimination of common stop words and short words</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="process-step mb-3">
+                            <span class="badge bg-primary text-white rounded-circle">3</span>
+                            <strong class="ms-2">Simple Stemming</strong>
+                            <p class="ms-4 mb-2">Application of the <code>simple_stem</code> function</p>
+                        </div>
+                        
+                        <div class="process-step mb-3">
+                            <span class="badge bg-primary text-white rounded-circle">4</span>
+                            <strong class="ms-2">TF-IDF Transformation</strong>
+                            <p class="ms-4 mb-0">Conversion to TF-IDF vector using the pre-fitted vectorizer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-light">
+                <p class="mb-0 font-italic"><i class="fas fa-info-circle me-1"></i> If the query is empty or results in an empty processed string, no recommendations are generated.</p>
+            </div>
+        </div>
+    </section>
+    
+    <hr class="divider">
+
+    <section id="recommendation" class="methodology-section">
+        <h2 class="section-heading">7. Recommendation Generation</h2>
+        <p>With the processed query vector, the system generates course recommendations:</p>
+        
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        <h3 class="subsection-heading mb-0">K-Nearest Neighbors (Default)</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>Uses the fitted <code>NearestNeighbors</code> model to find closest matches</li>
+                            <li>Retrieves <code>n_recommendations * 3</code> neighbors initially to allow for deduplication</li>
+                            <li>Calculates similarity as <code>1 - cosine_distance</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        <h3 class="subsection-heading mb-0">Cosine Similarity (Fallback)</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>Used if KNN model is unavailable or <code>use_knn=False</code></li>
+                            <li>Directly calculates cosine similarity between query vector and all course vectors</li>
+                            <li>Courses are sorted by similarity scores in descending order</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow-sm mt-3 mb-3">
+            <div class="card-header bg-light">
+                <h3 class="subsection-heading mb-0">Output Generation</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="h6">Processing Steps</h4>
+                        <ul>
+                            <li>Deduplication based on 'Course URL'</li>
+                            <li>Filtering (similarity score > 0)</li>
+                            <li>Selection of top <code>n_recommendations</code> (default: 10)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="h6">Recommendation Content</h4>
+                        <ul class="mb-0">
+                            <li>Course Name</li>
+                            <li>Course Rating</li>
+                            <li>Similarity Score</li>
+                            <li>Course URL</li>
+                            <li>Course Description (truncated to 100 chars)</li>
+                            <li>Skills</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert alert-info">
+            <i class="fas fa-shield-alt me-2"></i>
+            Error handling is in place to return an empty list if issues arise during the recommendation process.
+        </div>
+    </section>
+
+    <hr class="divider">
+</div>
+{% endblock %}

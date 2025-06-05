@@ -5,346 +5,164 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AMS Agent - Find Your Perfect Learning Path</title>
-    <link rel="icon" type = "image/x-icon" href="static/css/assets/favicon.jpg">
+    <title>{% block title %}AMS Agent{% endblock %}</title>
 
-    <!-- Bootstrap & FontAwesome CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'css/assets/logoAMS.jpg' %}">
 
-    <!-- Custom Style -->
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"  rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  rel="stylesheet">
+
+    <!-- Google Fonts - Libre Baskerville for all text -->
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- Lora Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            min-height: 100vh;
-            background: linear-gradient(120deg, #232526 0%, #414345 100%);
-            background-attachment: fixed;
-            font-family: 'Lora', Arial, Helvetica, sans-serif;
-        }
 
-        /* Apply Lora font to all major elements for consistency */
-        .hero-section,
-        .hero-content,
-        .hero-title,
-        .hero-subtitle,
-        .search-container,
-        .search-input,
-        .search-btn,
-        .recommendations-section,
-        .course-card,
-        .course-card-body,
-        .course-title,
-        .course-meta,
-        .meta-item,
-        .rating-stars,
-        .similarity-badge,
-        .skills-container,
-        .skill-tag,
-        .course-description,
-        .custom-alert,
-        .glass-footer,
-        .social-links,
-        .navbar,
-        .navbar-brand,
-        .nav-link,
-        .footer,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        a,
-        button,
-        input,
-        label,
-        span,
-        div {
-            font-family: 'Lora', Arial, Helvetica, sans-serif !important;
-        }
-
-        .hero-section {
-            position: relative;
-            background: url('https://images5.alphacoders.com/133/1338843.png') center/cover no-repeat;
-            min-height: 350px;
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(34, 40, 49, 0.7);
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-            padding: 3rem 2rem 2rem 2rem;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: 2.7rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 0.7rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: #e0e0e0;
-            margin-bottom: 2rem;
-        }
-
-        .search-container {
-            margin: 0 auto 2.5rem auto;
-            max-width: 600px;
-            position: relative;
-        }
-
-        .search-input {
-            border-radius: 2rem 0 0 2rem;
-            padding: 0.9rem 1.2rem;
-            font-size: 1.1rem;
-            border: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-        }
-
-        .search-btn {
-            border-radius: 0 2rem 2rem 0;
-            background: linear-gradient(90deg, #4f8cff 0%, #38e4ae 100%);
-            color: #fff;
-            font-weight: 600;
-            padding: 0 1.5rem;
-            border: none;
-            transition: background 0.2s;
-        }
-
-        .search-btn:hover {
-            background: linear-gradient(90deg, #38e4ae 0%, #4f8cff 100%);
-        }
-
-        .recommendations-section {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 1.2rem;
-            padding: 2rem 1.5rem 1.5rem 1.5rem;
-            margin-top: 1.5rem;
-            box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.10);
-        }
-
-        .course-card {
-            background: #23272f;
-            border-radius: 1rem;
-            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.13);
-            transition: transform 0.25s, box-shadow 0.25s;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .course-card-body {
-            padding: 1.3rem 1.2rem 1.1rem 1.2rem;
-        }
-
-        .course-card:hover {
-            transform: translateY(-6px) scale(1.025);
-            box-shadow: 0 8px 32px 0 rgba(80, 200, 255, 0.18);
-        }
-
-        .course-title {
-            color: #4f8cff;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .course-title:hover {
-            color: #38e4ae;
-        }
-
-        .course-meta {
-            display: flex;
-            gap: 1.2rem;
-            align-items: center;
-            margin: 0.7rem 0 0.5rem 0;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .rating-stars i {
-            color: #ffd700;
-            font-size: 1.1rem;
-        }
-
-        .similarity-badge {
-            background: linear-gradient(90deg, #38e4ae 0%, #4f8cff 100%);
-            color: #fff;
-            font-size: 0.95rem;
-            font-weight: 500;
-            border-radius: 0.7rem;
-            padding: 0.2rem 0.8rem;
-            margin-left: 0.2rem;
-        }
-
-        .skills-container {
-            margin: 0.7rem 0 0.5rem 0;
-        }
-
-        .skill-tag {
-            display: inline-block;
-            background: #2d3748;
-            color: #38e4ae;
-            border-radius: 0.6rem;
-            padding: 0.18rem 0.7rem;
-            font-size: 0.92rem;
-            margin: 0 0.18rem 0.18rem 0;
-            font-weight: 500;
-        }
-
-        .course-description {
-            color: #bfc9d1;
-            font-size: 1.01rem;
-            margin-top: 0.7rem;
-        }
-
-        .custom-alert {
-            background: #ffefc1;
-            color: #7a5c00;
-            border-radius: 0.7rem;
-            padding: 1.1rem 1.2rem;
-            margin-top: 2rem;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .glass-footer {
-            background: rgba(30, 34, 40, 0.85);
-            color: #e0e0e0;
-            border-radius: 1.2rem 1.2rem 0 0;
-            box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.10);
-        }
-
-        .social-links a {
-            color: #38e4ae;
-            font-size: 1.3rem;
-            margin-right: 0.7rem;
-            transition: color 0.2s;
-        }
-
-        .social-links a:hover {
-            color: #4f8cff;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .hero-section {
-                min-height: 220px;
-            }
-
-            .recommendations-section {
-                padding: 1.2rem 0.5rem;
-            }
-        }
-
-        /* Loading spinner */
-        .spinner-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(34, 40, 49, 0.45);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-            border-width: 0.4em;
-        }
-    </style>
+    {% block extra_css %}{% endblock %}
 </head>
 
-<body>
-    <!-- Enhanced Navbar -->
-    <nav class="navbar navbar-expand-lg glass-navbar">
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top shadow-sm bg-white" id="mainNavbar">
         <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="fas fa-graduation-cap me-2"></i>
-                <span 
-                    style="color: #e0e0e0;"> <strong>AMS Agent | Course Recommender </strong>
-                </span>
+            <a class="navbar-brand d-flex align-items-center gap-2 bounce-in" href="/">
+                <img src="{% static 'css/assets/atom.jpg' %}" alt="AMS Logo" height="62" class="d-inline-block align-top rounded-circle">
+                <span class="fw-bold fs-4">AMS Agent</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler rounded-pill" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav gap-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home me-1"></i>Home</a>
+                        <a class="nav-link px-3 py-2 {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                            href="{% url 'home' %}">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'recommend' %}"><i class="fas fa-book me-1"></i>Courses</a>
+                        <a class="nav-link px-3 py-2 {% if request.resolver_match.url_name == 'recommend' %}active{% endif %}"
+                            href="{% url 'recommend' %}">
+                            <i class="fas fa-book me-1"></i> Courses
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'analytics' %}"><i class="fas fa-chart-line me-1"></i>Analytics</a>
+                        <a class="nav-link px-3 py-2 {% if request.resolver_match.url_name == 'analytics' %}active{% endif %}"
+                            href="{% url 'analytics' %}">
+                            <i class="fas fa-chart-line me-1"></i> Analytics
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}"><i class="fas fa-user me-1"></i>Profile</a>
+                        <a class="nav-link px-3 py-2 {% if request.resolver_match.url_name == 'distribution' %}active{% endif %}"
+                            href="{% url 'distribution' %}">
+                            <i class="fa-solid fa-sitemap"></i> Methodology
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 py-2 {% if request.resolver_match.url_name == 'profile' %}active{% endif %}"
+                            href="{% url 'profile' %}">
+                            <i class="fas fa-user me-1"></i> Profile
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    {% block content %}{% endblock %}
+    <!-- Page Content -->
+    <main class="container main-content position-relative" style="padding-top: 90px;">
+        {% block content %}{% endblock %}
+    </main>
+
     <!-- Footer -->
-    <footer class="glass-footer py-4 mt-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-0">
-                        <i class="fas fa-copyright me-1"></i>
-                        {{ year|default:2025 }} AMS Agent. All rights reserved.
-                    </p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/chhaythean_/?hl=en " class="text-white me-3" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                        <a href="https://web.facebook.com/chhaythean.ly.2025/" class="text-white me-3" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
-                        <a href="https://github.com/theanthefinest" class="text-white" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-                    </div>
+<!-- Footer -->
+<footer class="footer bg-white border-top shadow-sm mt-5 py-4 fade-in-up">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="mb-0 text-muted small">
+                    &copy; {{ year|default:2025 }} AMS Agent. Built with purpose and passion.
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <div class="social-links d-flex justify-content-end gap-2">                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/chhaythean_/?hl=en" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <!-- Facebook -->
+                    <a href="https://web.facebook.com/chhaythean.ly.2025/" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="https://github.com/theanthefinest" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
+    <!-- Spinner -->
+    <div class="spinner-overlay" id="spinnerOverlay">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="spinner-text">Preparing your recommendations...</p>
+    </div>
 
-    <!-- Add Bootstrap JS for navbar collapse -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> 
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('mainNavbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
+        // Hide spinner after page loads
+        function hideSpinner() {
+            const spinner = document.getElementById('spinnerOverlay');
+            spinner.classList.remove('show');
+            spinner.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(hideSpinner, 300);
+        });
+
+        // Smooth transition on page leave
+        window.addEventListener('beforeunload', function () {
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(-20px)';
+        });
+    </script>
+
+    <script>
+    // Fade-in elements on scroll
+    const faders = document.querySelectorAll('.fade-in-up');
+
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.1 });
+
+    faders.forEach(el => appearOnScroll.observe(el));
+</script>
+
+    {% block scripts %}{% endblock %}
 </body>
 
 </html>

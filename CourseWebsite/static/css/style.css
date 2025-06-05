@@ -193,14 +193,7 @@ body {
     margin-top: 4rem;
 }
 
-.social-links a {
-    color: #fff;
-    font-size: 1.2rem;
-}
-
-.social-links a:hover {
-    color: #ffc107;
-}
+/* Social links styling has been moved to custom.css */
 
 /* Alert Message */
 .custom-alert {
@@ -211,4 +204,22 @@ body {
     font-weight: 500;
     margin-top: 2rem;
     text-align: center;
+}
+
+.navbar-brand,
+.navbar-brand *,
+.nav-link,
+.navbar-toggler {
+    font-family: 'Libre Baskerville', Georgia, serif !important;
+}
+
+/* Ensure active and hover states also inherit the font */
+.nav-link:hover,
+.nav-link.active,
+.nav-link:focus {
+    font-family: 'Libre Baskerville', Georgia, serif !important;
+}
+
+.font-libre {
+    font-family: 'Libre Baskerville', Georgia, serif;
 }

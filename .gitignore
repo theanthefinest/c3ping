@@ -62,7 +62,4 @@ Desktop.ini
 Final_Coursera.csv/
 
 #venv
-venv/
-
-#env
-env/
+.venv

@@ -1,34 +1,125 @@
 {% extends 'base.html' %}
-{% load static %}
+
+{% block title %}Home | Course Recommender{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">Welcome to <span style="color:#38e4ae;"> AMS Agent | Course Recommendations</span></h1>
-            <p class="hero-subtitle">Your personalized guide to discovering the best online courses for your learning journey.</p>
-            <form action="{% url 'recommend' %}" method="post" class="d-flex justify-content-center mt-4 mb-3">
-                {% csrf_token %}
-                <input type="text" name="query" class="form-control search-input" placeholder="What do you want to learn? (e.g., Python, Data Science)" style="max-width: 350px;">
-                <button type="submit" class="btn search-btn ms-2"><i class="fas fa-search me-1"></i>Find Courses</button>
-            </form>
-            <div class="mt-4 mb-2" style="max-width: 700px; margin: 0 auto;">
-                <div class="card bg-dark bg-opacity-75 border-0 shadow-lg p-4" style="border-radius: 1.2rem;">
-                    <h4 class="mb-3" style="color: #38e4ae;"><i class="fas fa-info-circle me-2"></i>How does it work?</h4>
-                    <ol class="text-start" style="color: #e0e0e0; font-size: 1.1rem;">
-                        <li><strong>Enter your interests:</strong> Type what you want to learn (e.g., "Python", "Data Science", "Web Development") in the search bar above.</li>
-                        <li><strong>Get recommendations:</strong> Our AI analyzes your query and instantly suggests the most relevant courses from our curated catalog.</li>
-                        <li><strong>Explore details:</strong> View course ratings, skills you'll gain, and direct links to enroll or learn more.</li>
-                        <li><strong>Personalized & Fast:</strong> The more specific your keywords, the better your recommendations!</li>
-                    </ol>
-                    <div class="alert alert-info mt-3 mb-0" style="background: rgba(56,228,174,0.12); color: #38e4ae; border: none;">
-                        <i class="fas fa-lightbulb me-2"></i>
-                        Try searching for <span style="font-weight:600;">"Machine Learning"</span>, <span style="font-weight:600;">"Business Analytics"</span>, or <span style="font-weight:600;">"Mobile App Development"</span> to get started!
+<!-- Hero Section -->
+<section class="text-center py-5">
+    <div class="container">
+        <h1 class="display-5 fw-bold mb-4 page-title">
+            Welcome to <span class="text-primary">AMS Agent Course Recommender</span>
+        </h1>
+        <p class="lead mb-4 text-muted">
+            Discover the best courses tailored to your interests and academic profile.
+        </p>
+        <a href="{% url 'recommend' %}" class="btn btn-primary btn-lg px-4 bounce-in">
+            <i class="fas fa-magic me-2"></i> Get Recommendations
+        </a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 mt-3">
+    <div class="container">
+        <h2 class="text-center mb-5 page-title">How It Works</h2>
+        <div class="row text-center g-5 justify-content-center">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm fade-in-up">
+                    <div class="card-body p-4">
+                        <i class="fas fa-brain fa-2x text-primary mb-3"></i>
+                        <h4 class="card-title fw-bold">Smart Matching</h4>
+                        <p class="card-text text-muted">Our system uses advanced algorithms to match you with the most suitable courses.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm fade-in-up">
+                    <div class="card-body p-4">
+                        <i class="fas fa-chart-bar fa-2x text-primary mb-3"></i>
+                        <h4 class="card-title fw-bold">Visual Analytics</h4>
+                        <p class="card-text text-muted">Analyze your preferences and performance with insightful visual charts.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm fade-in-up">
+                    <div class="card-body p-4">
+                        <i class="fas fa-user-circle fa-2x text-primary mb-3"></i>
+                        <h4 class="card-title fw-bold">Personalized Profile</h4>
+                        <p class="card-text text-muted">Keep track of your recommended courses and update your preferences anytime.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 text-center my-4 bg-white" style="border-radius: var(--radius);">
+    <div class="container">
+        <div class="p-5 shadow-sm rounded-3 position-relative overflow-hidden">
+            <h3 class="mb-3 fw-bold">Ready to find the best courses for you?</h3>
+            <a href="{% url 'recommend' %}" class="btn btn-primary btn-lg mt-2 shake">
+                <i class="fas fa-arrow-right me-2"></i> Start Now
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Typography */
+    .page-title {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 2.75rem;
+        font-weight: bold;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .card {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border-radius: var(--radius);
+        background-color: var(--bg-secondary);
+        border: none;
+    }
+
+    .card:hover {
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .text-primary {
+        color: var(--primary) !important;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+        border: none;
+        font-weight: 500;
+        padding: 0.75rem 1.75rem;
+        font-size: 1.1rem;
+        border-radius: var(--radius);
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, var(--primary-hover), var(--secondary));
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .fade-in-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 {% endblock %}
