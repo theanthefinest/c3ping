@@ -10,9 +10,9 @@ This project is a Django-based web application for course recommendation and ana
 
 ## Project Structure
 ```
-CourseWebsite/
-├── CourseWebsite/         # Django project settings
-├── Website/              # Main Django app (models, views, recommender, etc.)
+c3ping/
+├── c3ping/         # Django project settings
+├── backend/              # Main Django app (models, views, recommender, etc.)
 ├── static/               # Static files (CSS, JS)
 ├── templates/            # HTML templates
 ├── db.sqlite3            # SQLite database
@@ -56,11 +56,10 @@ CourseWebsite/
 
 ## Dependencies
 - Django
-- streamlit==1.25.0
+- djangorestframework
 - pandas==1.5.3
 - numpy==1.24.3
 - scikit-learn==1.2.2
-- plotly==5.15.0
 - nltk==3.8.1
 - spacy==3.5.0
 

@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Website',
+    'backend',
+    'c3ping',
     'rest_framework',
 ]
 
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'CourseWebsite.urls'
+ROOT_URLCONF = 'c3ping.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'CourseWebsite.wsgi.application'
+WSGI_APPLICATION = 'c3ping.wsgi.application'
 
 
 # Database

@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def load_data():
     try:
-        df = pd.read_csv(r"D:\AMS-Agent\agentAMS\Final_Coursera.csv")
+        df = pd.read_csv(r"Final_Coursera.csv")
         required_cols = ['Course Name', 'Course Description', 'Skills', 'Course Rating', 'Course URL']
         if not all(col in df.columns for col in required_cols):
             raise ValueError("Missing required columns")

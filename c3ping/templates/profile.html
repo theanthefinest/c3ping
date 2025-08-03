@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+
+<div class="profile-bg">
+  <div class="profile-row">
+    <div class="card">
+      <div class="card-content">
+        <img src="{% static 'img.jpg' %}" alt="John" class="profile-img" />
+        <h1>LY Chhaythean</h1>
+        <p class="title">Team Lead, Developer</p>
+        <p>Institute of Technology of Cambodia</p>
+        <div class="social-links">
+          <a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <img src="{% static 'img.jpg' %}" alt="John" class="profile-img" />
+        <h1>NEANG Vanna</h1>
+        <p class="title">UX & UI, Designer</p>
+        <p>Institute of Technology of Cambodia</p>
+        <div class="social-links">
+          <a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a>
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>
