@@ -1,4 +1,4 @@
-# Mini-Django Course Recommendation Website
+# c3ping
 
 This project is a Django-based web application for course recommendation and analytics, utilizing machine learning and data visualization tools. It is designed to help users find suitable courses and analyze course data interactively.
 
@@ -24,8 +24,8 @@ c3ping/
 ## Installation
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/mini-django.git
-   cd mini-django
+   git clone https://github.com/theanthefinest/c3ping.git
+   cd c3ping
    ```
 2. **Create and activate a virtual environment:**
    ```sh
@@ -48,11 +48,6 @@ c3ping/
    ```
 6. **Access the app:**
    Open your browser and go to `http://127.0.0.1:8000/`
-
-## Usage
-- Register or log in to access personalized recommendations.
-- Use the analytics dashboard for course insights.
-- Explore interactive visualizations and recommendations.
 
 ## Dependencies
 - Django
